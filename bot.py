@@ -1,16 +1,20 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 import logging
+from datetime import datetime
 
-from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
-                          InlineQueryHandler, )
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+awake = datetime.now()
 
-TOKEN = '585421530:AAEvq5r9Imkeuhcr95axCauIfENu_oMdkyU'
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO,
+)
 
+TOKEN = os.environ['TELEGRAM_TOKEN']
 updater = Updater(token=TOKEN)
 dispatcher = updater.dispatcher
 
@@ -45,6 +49,20 @@ def info_text(bot, update):
 info_handler = CommandHandler('info', info_text)
 dispatcher.add_handler(info_handler)
 logging.info('Added info handler')
+
+# XXX: awake
+
+def uptime(bot, update):
+    uptime = datetime.now() - awake
+    uptime_fmt = ':'.join(str(uptime).split(':')[:3])
+    bot.send_message(
+        chat_id=update.message.chat_id,
+        text='Llevo despierto {}'.format(uptime_fmt),
+    )
+
+uptime_handler = MessageHandler(Filters.command, uptime)
+dispatcher.add_handler(uptime_handler)
+logging.info('Added uptime handler')
 
 
 def unknown(bot, update):
