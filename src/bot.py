@@ -21,7 +21,15 @@ dispatcher = updater.dispatcher
 greeting_message = ''' Hola soy el bot del proyecto Som Aigua
 
 Ahora mismo estoy programado para:
-* Procesar enlaces
+
+/start
+
+Muestra esta ayuda
+
+/info mensaje
+
+Este comando guardará el mensaje, junto con la fecha y la persona que lo haya
+enviado
 
 Para ello necesitas darte de alta como usuaria. Escribe a Sergio Soto para poder
 empezar a colaborar con nosotras.
@@ -45,12 +53,18 @@ def info_text(bot, update):
         chat_id=update.message.chat_id,
         text=reply
     )
+    logging.info(
+        'User: {}, message: "{}"'.format(
+            message,
+            update.effective_message.from_user.name
+        )
+    )
 
 info_handler = CommandHandler('info', info_text)
 dispatcher.add_handler(info_handler)
 logging.info('Added info handler')
 
-# XXX: awake
+# XXX: uptime
 
 def uptime(bot, update):
     uptime = datetime.now() - awake
@@ -60,10 +74,11 @@ def uptime(bot, update):
         text='Llevo despierto {}'.format(uptime_fmt),
     )
 
-uptime_handler = MessageHandler(Filters.command, uptime)
+uptime_handler = CommandHandler('uptime', uptime)
 dispatcher.add_handler(uptime_handler)
 logging.info('Added uptime handler')
 
+# XXX: unknown message received
 
 def unknown(bot, update):
     bot.send_message(
