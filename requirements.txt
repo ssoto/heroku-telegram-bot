@@ -8,4 +8,4 @@ python-telegram-bot==10.1.0
 # git+https://github.com/Kylmakalle/pyTelegramBotAPI.git@feature-BotAPIV3
 
 # Or you have .zip library
-https://site.org/files/package.zip
+# https://site.org/files/package.zip
