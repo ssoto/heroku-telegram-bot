@@ -39,6 +39,7 @@ def read_from_file():
         for line in fd.readlines():
             splitted = line.split(',')
             [hour, message, user] = splitted
+            user = user.strip()
             result.append(
                 '{} ({}) - {}'.format(
                     hour,
