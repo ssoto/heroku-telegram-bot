@@ -24,6 +24,6 @@ def write_on_file(message, user):
         MESSAGE=message,
         USER=user,
     )
-    logging.info('Writing message of {}'.format(user))
+    logging.info('Writing message of {} in {}'.format(user, file_name))
     with open(file_name, 'a') as fd:
         fd.write(line)
