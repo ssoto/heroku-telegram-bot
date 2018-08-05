@@ -41,7 +41,9 @@ def read_from_file():
             [hour, message, user] = splitted
             result.append(
                 '{} ({}) - {}'.format(
-                    hour, message, user
+                    hour,
+                    user,
+                    message,
                 )
             )
     return '\n'.join([r for r in result])
