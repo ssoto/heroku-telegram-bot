@@ -7,6 +7,8 @@ from datetime import datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+from oc_integration import write_on_file
+
 awake = datetime.now()
 
 logging.basicConfig(
@@ -45,18 +47,23 @@ dispatcher.add_handler(start_handler)
 
 def info_text(bot, update):
     message = update.message.text
+    user = update.effective_message.from_user.name
 
     reply = '''
     > {}
     El texto ha sido guardado'''.format(message)
+
+    write_on_file(
+        message,
+        user
+    )
     bot.send_message(
         chat_id=update.message.chat_id,
         text=reply
     )
     logging.info(
         'User: {}, message: "{}"'.format(
-            message,
-            update.effective_message.from_user.name
+            message, user
         )
     )
 
