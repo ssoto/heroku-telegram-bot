@@ -7,7 +7,7 @@ from datetime import datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-from oc_integration import write_on_file
+from oc_integration import write_on_file, read_from_file
 
 awake = datetime.now()
 
@@ -70,6 +70,18 @@ def info_text(bot, update):
 info_handler = CommandHandler('info', info_text)
 dispatcher.add_handler(info_handler)
 logging.info('Added info handler')
+
+
+def read_messages(bot, update):
+    messages = read_from_file()
+    bot.send_message(
+        chat_id=update.message.chat_id,
+        text=messages
+    )
+
+messages_handler = CommandHandler('messages', read_messages)
+dispatcher.add_handler(messages_handler)
+logging.info('Added messages handler')
 
 # XXX: uptime
 
