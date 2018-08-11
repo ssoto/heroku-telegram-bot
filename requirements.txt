@@ -1,12 +1,4 @@
-# List of required packages (Dependencies)
-redis
-
-# If you need to specify a version
 python-telegram-bot==10.1.0
 pyocclient==0.4
-
-# Or you need not a pip package, @'...' specifies git branch
-# git+https://github.com/Kylmakalle/pyTelegramBotAPI.git@feature-BotAPIV3
-
-# Or you have .zip library
-# https://site.org/files/package.zip
+SQLAlchemy==1.2.10
+psycopg2==2.7.5
